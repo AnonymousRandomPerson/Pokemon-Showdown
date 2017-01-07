@@ -2246,6 +2246,8 @@ exports.BattleScripts = {
 		}
 		let level = levelScale[tier] || 75;
 		if (customScale[template.name]) level = customScale[template.name];
+		
+		level = 100;
 
 		// if (template.name === 'Slurpuff' && !counter.setupType) level = 81;
 		// if (template.name === 'Xerneas' && hasMove['geomancy']) level = 71;
