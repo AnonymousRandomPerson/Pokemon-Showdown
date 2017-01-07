@@ -765,7 +765,7 @@ class GlobalRoom {
 			return;
 		}
 
-		console.log('BATTLE START BETWEEN: ' + p1.userid + ' ' + p2.userid);
+		// console.log('BATTLE START BETWEEN: ' + p1.userid + ' ' + p2.userid);
 		let i = this.lastBattle + 1;
 		let formaturlid = format.toLowerCase().replace(/[^a-z0-9]+/g, '');
 		while (Rooms.rooms.has('battle-' + formaturlid + '-' + i)) {

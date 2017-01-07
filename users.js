@@ -1502,7 +1502,7 @@ Users.socketConnect = function (worker, workerid, socketid, ip, protocol) {
 			user.disconnectAll();
 		} else if (connection.user) {	// if user is still connected
 			connection.challenge = buffer.toString('hex');
-			console.log('JOIN: ' + connection.user.name + ' [' + connection.challenge.substr(0, 15) + '] [' + ']');
+			// console.log('JOIN: ' + connection.user.name + ' [' + connection.challenge.substr(0, 15) + '] [' + ']');
 			let keyid = Config.loginserverpublickeyid || 0;
 			connection.sendTo(null, `|challstr|${keyid}|${connection.challenge}`);
 		}
