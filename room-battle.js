@@ -392,7 +392,7 @@ class Battle {
 		let slotNum = 0;
 		while (this['p' + (slotNum + 1)]) slotNum++;
 		let slot = 'p' + (slotNum + 1);
-		// console.log('joining: ' + user.name + ' ' + slot);
+		console.log('joining: ' + user.name + ' ' + slot);
 
 		let player = new BattlePlayer(user, this, slot);
 		this[slot] = player;
@@ -468,7 +468,6 @@ if (process.send && module === process.mainModule) {
 	// Receive and process a message sent using Simulator.prototype.send in
 	// another process.
 	process.on('message', message => {
-		//console.log('CHILD MESSAGE RECV: "' + message + '"');
 		let nlIndex = message.indexOf("\n");
 		let more = '';
 		if (nlIndex > 0) {

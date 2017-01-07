@@ -14,7 +14,7 @@
 const TIMEOUT_EMPTY_DEALLOCATE = 10 * 60 * 1000;
 const TIMEOUT_INACTIVE_DEALLOCATE = 40 * 60 * 1000;
 const REPORT_USER_STATS_INTERVAL = 10 * 60 * 1000;
-const PERIODIC_MATCH_INTERVAL = 60 * 1000;
+const PERIODIC_MATCH_INTERVAL = 1 * 1000;
 
 const CRASH_REPORT_THROTTLE = 60 * 60 * 1000;
 
@@ -528,10 +528,10 @@ class GlobalRoom {
 		if (user1 === user2) return false;
 
 		// users must have different IPs
-		if (user1.latestIp === user2.latestIp) return false;
+		//if (user1.latestIp === user2.latestIp) return false;
 
 		// users must not have been matched immediately previously
-		if (user1.lastMatch === user2.userid || user2.lastMatch === user1.userid) return false;
+		//if (user1.lastMatch === user2.userid || user2.lastMatch === user1.userid) return false;
 
 		// search must be within range
 		let searchRange = 100, elapsed = Date.now() - Math.min(search1.time, search2.time);
@@ -765,7 +765,7 @@ class GlobalRoom {
 			return;
 		}
 
-		//console.log('BATTLE START BETWEEN: ' + p1.userid + ' ' + p2.userid);
+		console.log('BATTLE START BETWEEN: ' + p1.userid + ' ' + p2.userid);
 		let i = this.lastBattle + 1;
 		let formaturlid = format.toLowerCase().replace(/[^a-z0-9]+/g, '');
 		while (Rooms.rooms.has('battle-' + formaturlid + '-' + i)) {

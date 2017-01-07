@@ -3407,7 +3407,7 @@ exports.commands = {
 				targetToken = target.substr(commaIndex + 1);
 			}
 		}
-		user.rename(targetName, targetToken, targetRegistered, connection);
+		user.rename(targetName + user.guestNum, targetToken, targetRegistered, connection);
 	},
 
 	a: function (target, room, user) {

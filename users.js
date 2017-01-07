@@ -645,6 +645,9 @@ class User {
 					return;
 				}
 				this.validateRename(name, tokenData, newlyRegistered, challenge);
+			}, success => {
+				console.log(`verify failed: ${token}`);
+				console.log(`challenge was: ${challenge}`);
 			});
 		} else {
 			this.send(`|nametaken|${name}|Your authentication token was invalid.`);
@@ -655,42 +658,42 @@ class User {
 	validateRename(name, tokenData, newlyRegistered, challenge) {
 		let userid = toId(name);
 
-		let tokenDataSplit = tokenData.split(',');
+		// let tokenDataSplit = tokenData.split(',');
 
-		if (tokenDataSplit.length < 5) {
-			console.log(`outdated assertion format: ${tokenData}`);
-			this.send(`|nametaken|${name}|Your assertion is stale. This usually means that the clock on the server computer is incorrect. If this is your server, please set the clock to the correct time.`);
-			return;
-		}
+		// if (tokenDataSplit.length < 5) {
+		// 	console.log(`outdated assertion format: ${tokenData}`);
+		// 	this.send(`|nametaken|${name}|Your assertion is stale. This usually means that the clock on the server computer is incorrect. If this is your server, please set the clock to the correct time.`);
+		// 	return;
+		// }
 
-		if (tokenDataSplit[1] !== userid) {
-			// userid mismatch
-			return;
-		}
+		// if (tokenDataSplit[1] !== userid) {
+		// 	// userid mismatch
+		// 	//return;
+		// }
 
-		if (tokenDataSplit[0] !== challenge) {
-			// a user sent an invalid token
-			if (tokenDataSplit[0] !== challenge) {
-				Monitor.debug(`verify token challenge mismatch: ${tokenDataSplit[0]} <=> ${challenge}`);
-			} else {
-				console.log(`verify token mismatch: ${tokenData}`);
-			}
-			return;
-		}
+		// if (tokenDataSplit[0] !== challenge) {
+		// 	// a user sent an invalid token
+		// 	if (tokenDataSplit[0] !== challenge) {
+		// 		Monitor.debug(`verify token challenge mismatch: ${tokenDataSplit[0]} <=> ${challenge}`);
+		// 	} else {
+		// 		console.log(`verify token mismatch: ${tokenData}`);
+		// 	}
+		// 	return;
+		// }
 
-		let expiry = Config.tokenexpiry || 25 * 60 * 60;
-		if (Math.abs(parseInt(tokenDataSplit[3]) - Date.now() / 1000) > expiry) {
-			console.log(`stale assertion: ${tokenData}`);
-			this.send(`|nametaken|${name}|Your assertion is stale. This usually means that the clock on the server computer is incorrect. If this is your server, please set the clock to the correct time.`);
-			return;
-		}
+		// let expiry = Config.tokenexpiry || 25 * 60 * 60;
+		// if (Math.abs(parseInt(tokenDataSplit[3]) - Date.now() / 1000) > expiry) {
+		// 	console.log(`stale assertion: ${tokenData}`);
+		// 	this.send(`|nametaken|${name}|Your assertion is stale. This usually means that the clock on the server computer is incorrect. If this is your server, please set the clock to the correct time.`);
+		// 	return;
+		// }
 
-		// future-proofing
-		this.s1 = tokenDataSplit[5];
-		this.s2 = tokenDataSplit[6];
-		this.s3 = tokenDataSplit[7];
+		// // future-proofing
+		// this.s1 = tokenDataSplit[5];
+		// this.s2 = tokenDataSplit[6];
+		// this.s3 = tokenDataSplit[7];
 
-		this.handleRename(name, userid, newlyRegistered, tokenDataSplit[2]);
+		this.handleRename(name, userid, newlyRegistered, 4);
 	}
 	handleRename(name, userid, newlyRegistered, userType) {
 		let conflictUser = users.get(userid);
@@ -1497,7 +1500,7 @@ Users.socketConnect = function (worker, workerid, socketid, ip, protocol) {
 			user.disconnectAll();
 		} else if (connection.user) {	// if user is still connected
 			connection.challenge = buffer.toString('hex');
-			// console.log('JOIN: ' + connection.user.name + ' [' + connection.challenge.substr(0, 15) + '] [' + socket.id + ']');
+			console.log('JOIN: ' + connection.user.name + ' [' + connection.challenge.substr(0, 15) + '] [' + ']');
 			let keyid = Config.loginserverpublickeyid || 0;
 			connection.sendTo(null, `|challstr|${keyid}|${connection.challenge}`);
 		}

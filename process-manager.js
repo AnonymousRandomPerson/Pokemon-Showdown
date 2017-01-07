@@ -116,7 +116,9 @@ class ProcessManager {
 			process.pendingTasks.set(this.taskId, resolve);
 			try {
 				process.process.send(`${this.taskId}|${serializedArgs}`);
-			} catch (e) {}
+			} catch (e) {
+				console.log(e);
+			}
 			++this.taskId;
 		});
 	}

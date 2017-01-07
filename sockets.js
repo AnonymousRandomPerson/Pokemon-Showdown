@@ -28,7 +28,8 @@ if (cluster.isMaster) {
 		let id = worker.id;
 		workers[id] = worker;
 		worker.on('message', data => {
-			// console.log('master received: ' + data);
+			console.log('master received: ' + data);
+			console.log('');
 			switch (data.charAt(0)) {
 			case '*': {
 				// *socketid, ip, protocol
@@ -203,7 +204,7 @@ if (cluster.isMaster) {
 		let avatarserver = new nodestatic.Server('./config/avatars');
 		let staticserver = new nodestatic.Server('./static');
 		let staticRequestHandler = (request, response) => {
-			// console.log("static rq: " + request.socket.remoteAddress + ":" + request.socket.remotePort + " -> " + request.socket.localAddress + ":" + request.socket.localPort + " - " + request.method + " " + request.url + " " + request.httpVersion + " - " + request.rawHeaders.join('|'));
+			console.log("static rq: " + request.socket.remoteAddress + ":" + request.socket.remotePort + " -> " + request.socket.localAddress + ":" + request.socket.localPort + " - " + request.method + " " + request.url + " " + request.httpVersion + " - " + request.rawHeaders.join('|'));
 			request.resume();
 			request.addListener('end', () => {
 				if (Config.customhttpresponse &&
@@ -281,7 +282,8 @@ if (cluster.isMaster) {
 	let interval = setInterval(sweepClosedSockets, 1000 * 60 * 10); // eslint-disable-line no-unused-vars
 
 	process.on('message', data => {
-		// console.log('worker received: ' + data);
+		console.log('worker received: ' + data);
+		console.log('');
 		let socket = null, socketid = '';
 		let channel = null, channelid = '';
 		let subchannel = null, subchannelid = '';
