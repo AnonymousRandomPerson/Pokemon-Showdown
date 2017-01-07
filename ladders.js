@@ -56,7 +56,7 @@ class Ladder {
 			}
 		}
 		return (ladderCaches[this.formatid] = new Promise((resolve, reject) => {
-			fs.readFile('config/ladders/' + this.formatid + '.tsv', (err, data) => {
+			fs.readFile(Config.filePath + 'config/ladders/' + this.formatid + '.tsv', (err, data) => {
 				if (err) {
 					this.loadedLadder = ladderCaches[this.formatid] = [];
 					// console.log('Ladders(' + this.formatid + ') err loading tsv: ' + JSON.stringify(this.loadedLadder));
@@ -97,7 +97,7 @@ class Ladder {
 			this.saving = false;
 			return;
 		}
-		let stream = fs.createWriteStream('config/ladders/' + this.formatid + '.tsv');
+		let stream = fs.createWriteStream(Config.filePath + 'config/ladders/' + this.formatid + '.tsv');
 		stream.write('Elo\tUsername\tW\tL\tT\tLast update\r\n');
 		for (let i = 0; i < this.loadedLadder.length; i++) {
 			let row = this.loadedLadder[i];

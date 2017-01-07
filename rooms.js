@@ -1010,7 +1010,7 @@ class BattleRoom extends Room {
 	}
 	logBattle(p1score, p1rating, p2rating) {
 		let logData = this.battle.logData;
-		if (!logData) return;
+		if (!logData || !Config.logBattles) return;
 		this.battle.logData = null; // deallocate to save space
 		logData.log = BattleRoom.prototype.getLog.call(logData, 3); // replay log (exact damage)
 
@@ -1039,7 +1039,7 @@ class BattleRoom extends Room {
 		const logsubfolder = Chat.toTimestamp(date).split(' ')[0];
 		const logfolder = logsubfolder.split('-', 2).join('-');
 
-		let curpath = 'logs/' + logfolder;
+		let curpath = Config.filePath + 'logs/' + logfolder;
 		fs.mkdir(curpath, '0755', () => {
 			let tier = this.format.toLowerCase().replace(/[^a-z0-9]+/g, '');
 			curpath += '/' + tier;
