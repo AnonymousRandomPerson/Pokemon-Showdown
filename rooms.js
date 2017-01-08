@@ -534,16 +534,20 @@ class GlobalRoom {
 		//if (user1.lastMatch === user2.userid || user2.lastMatch === user1.userid) return false;
 
 		// search must be within range
-		let searchRange = 100, elapsed = Date.now() - Math.min(search1.time, search2.time);
-		if (formatid === 'ou' || formatid === 'oucurrent' || formatid === 'oususpecttest' || formatid === 'randombattle') searchRange = 50;
-		searchRange += elapsed / 300; // +1 every .3 seconds
-		if (searchRange > 300) searchRange = 300 + (searchRange - 300) / 10; // +1 every 3 sec after 300
-		if (searchRange > 600) searchRange = 600;
-		if (Math.abs(search1.rating - search2.rating) > searchRange) return false;
+		if (Config.limitMatchmaking) {
+			let searchRange = 100, elapsed = Date.now() - Math.min(search1.time, search2.time);
+			if (formatid === 'ou' || formatid === 'oucurrent' || formatid === 'oususpecttest' || formatid === 'randombattle') searchRange = 50;
+			searchRange += elapsed / 300; // +1 every .3 seconds
+			if (searchRange > 300) searchRange = 300 + (searchRange - 300) / 10; // +1 every 3 sec after 300
+			if (searchRange > 600) searchRange = 600;
+			if (Math.abs(search1.rating - search2.rating) > searchRange) return false;
 
-		user1.lastMatch = user2.userid;
-		user2.lastMatch = user1.userid;
-		return Math.min(search1.rating, search2.rating) || 1;
+			user1.lastMatch = user2.userid;
+			user2.lastMatch = user1.userid;
+			return Math.min(search1.rating, search2.rating) || 1;
+		} else {
+			return true;
+		}
 	}
 	addSearch(newSearch, user, formatid) {
 		// Filter racing conditions

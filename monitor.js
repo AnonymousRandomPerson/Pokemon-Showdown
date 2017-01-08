@@ -105,9 +105,9 @@ const Monitor = module.exports = {
 		let count = val[0], duration = val[1];
 		name = (name ? ': ' + name : '');
 		if (duration < 5 * 60 * 1000 && count % 30 === 0) {
-			this.adminlog('[ResourceMonitor] IP ' + ip + ' has battled ' + count + ' times in the last ' + Chat.toDurationString(duration) + name);
+			// this.adminlog('[ResourceMonitor] IP ' + ip + ' has battled ' + count + ' times in the last ' + Chat.toDurationString(duration) + name);
 		} else if (count % 150 === 0) {
-			this.adminlog('[ResourceMonitor] IP ' + ip + ' has battled ' + count + ' times in the last ' + Chat.toDurationString(duration) + name);
+			// this.adminlog('[ResourceMonitor] IP ' + ip + ' has battled ' + count + ' times in the last ' + Chat.toDurationString(duration) + name);
 		}
 	},
 	/**
